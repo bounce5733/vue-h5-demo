@@ -39,7 +39,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Row, Col, DropdownMenu, DropdownItem, Radio, RadioGroup, Divider, Tag } from 'vant'
-import echarts from 'echarts'
+import echarts from '@/utils/echarts'
 import { getLoanBalance } from '@/api/retailLine'
 import { LoanBalanceType } from '@/api/types'
 

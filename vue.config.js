@@ -73,12 +73,12 @@ module.exports = {
               },
               vue: {
                 name: 'chunk-vue', // split vue into a single package
-                priority: 21, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                priority: 12, // the weight needs to be larger than libs and app or it will be packaged into libs or app
                 test: /[\\/]node_modules[\\/]_?vue(.*)/ // in order to adapt to cnpm
               },
               vant: {
                 name: 'chunk-vant', // split vant into a single package
-                priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                priority: 11, // the weight needs to be larger than libs and app or it will be packaged into libs or app
                 test: /[\\/]node_modules[\\/]_?vant(.*)/ // in order to adapt to cnpm
               },
               echarts: {
