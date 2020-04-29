@@ -40,6 +40,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Row, Col, DropdownMenu, DropdownItem, Radio, RadioGroup, Divider, Tag } from 'vant'
 import echarts from 'echarts'
+import { getLoanBalance } from '@/api/retailLine'
+import { LoanBalanceType } from '@/api/types'
 
 @Component({
   name: 'LoanBalance',
@@ -84,9 +86,23 @@ export default class extends Vue {
   private subBankOption = this.fhlist
 
   created() {
-    this.$nextTick(() => {
-      this.initChart()
-    })
+    this.fetchData()
+  }
+
+  private async fetchData() {
+    try {
+      const { data } = await getLoanBalance()
+      const citys: Array<string> = []
+      const amounts: Array<number> = []
+
+      data.forEach((item: LoanBalanceType) => {
+        citys.push(item.cityName)
+        amounts.push(item.amount)
+      })
+      this.renderChart(citys, amounts)
+     } catch (err) {
+      console.error(err)
+    }
   }
 
   private changeSubBank(val: string) {
@@ -101,9 +117,8 @@ export default class extends Vue {
     }
   }
 
-  private initChart() {
+  private renderChart(citys: Array<string>, amounts: Array<number>) {
     // 图表属性
-
     const normalLoanChart = echarts.init(this.$refs.normalLoanChart as HTMLDivElement)
     normalLoanChart.setOption({
       title: {
@@ -122,13 +137,13 @@ export default class extends Vue {
             return value.split('').join('\n')
           }
         },
-        data: ['上海', '杭州', '南京', '深圳', '苏州', '北京', '无锡', '温州', '金华', '绍兴', '台州', '嘉兴', '丽水', '湖州', '衢州']
+        data: citys
       },
       yAxis: {},
       series: [{
           name: '销量',
           type: 'bar',
-          data: [1115, 2220, 3336, 1110, 1110, 2110, 5222, 2220, 3336, 1330, 1033, 2033, 5333, 2033, 3633]
+          data: amounts
       }]
     })
     const smallLoanChart = echarts.init(this.$refs.smallLoanChart as HTMLDivElement)
@@ -149,13 +164,13 @@ export default class extends Vue {
             return value.split('').join('\n')
           }
         },
-        data: ['上海', '杭州', '南京', '深圳', '苏州', '北京', '无锡', '温州', '金华', '绍兴', '台州', '嘉兴', '丽水', '湖州', '衢州']
+        data: citys
       },
       yAxis: {},
       series: [{
           name: '销量',
           type: 'bar',
-          data: [1115, 2220, 3336, 1110, 1110, 2110, 5222, 2220, 3336, 1330, 1033, 2033, 5333, 2033, 3633]
+          data: amounts
       }]
     })
     const loanChart = echarts.init(this.$refs.loanChart as HTMLDivElement)
@@ -176,13 +191,13 @@ export default class extends Vue {
             return value.split('').join('\n')
           }
         },
-        data: ['上海', '杭州', '南京', '深圳', '苏州', '北京', '无锡', '温州', '金华', '绍兴', '台州', '嘉兴', '丽水', '湖州', '衢州']
+        data: citys
       },
       yAxis: {},
       series: [{
           name: '销量',
           type: 'bar',
-          data: [1115, 2220, 3336, 1110, 1110, 2110, 5222, 2220, 3336, 1330, 1033, 2033, 5333, 2033, 3633]
+          data: amounts
       }]
     })
   }

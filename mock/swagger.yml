@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  description: Mock API for h5 demo
+  version: 1.0.0
+  title: Mock API
+  contact:
+    email: xxx@email.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: /mock-api/v1
+tags:
+  - name: retail line
+    description: 零售条线
+paths:
+  /loanBalance:
+    get:
+      tags:
+        - loan balance
+      description: 贷款余额
+      operationId: getLoanBalance
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LoanBalance'
+components:
+  schemas:
+    LoanBalance:
+      type: object
+      properties:
+        cityName:
+          type: string
+        amount:
+          type: string
