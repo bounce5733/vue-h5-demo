@@ -44,9 +44,11 @@
     "concurrently": "^5.2.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "faker": "^4.1.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
     "swagger-routes-express": "^3.1.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "~3.8.3",
     "vue-template-compiler": "^2.6.11"
   }
